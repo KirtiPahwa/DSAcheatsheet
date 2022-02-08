@@ -6,7 +6,7 @@ class dLL
 	   int data;
 	   dLL* prev;
 	   dLL* next;
-	   dLL *ps, *pe, *q;											// 
+	   dLL *ps, *pe, *q;											
 	   dLL()
 	   {
 	   		ps=NULL;
