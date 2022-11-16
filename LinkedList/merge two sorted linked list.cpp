@@ -111,16 +111,72 @@ void deleteNode(Node *&head, int key)
     }
     delete nodeToDelete;
 }
+Node *merge(Node *head1, Node *head2)
+{
+    Node *temp;
+    bool flag = 1;
+    if ((head1->data <= head2->data))
+    {
+        temp = new Node(head1->data);
+        head1 = head1->next;
+    }
+    else if ((head1->data > head2->data))
+    {
+        temp = new Node(head2->data);
+        head2 = head2->next;
+    }
+    Node *head = temp;
+    while (head1 && head2)
+    {
+        if ((head1->data <= head2->data))
+        {
+            cout << "head1" << endl;
+            temp->next = new Node(head1->data);
+            head1 = head1->next;
+        }
+        else if ((head1->data > head2->data))
+        {
+            cout << "head2" << endl;
+            temp->next = new Node(head2->data);
+            head2 = head2->next;
+        }
+        temp = temp->next;
+    }
+    while (head1)
+    {
+        temp->next = new Node(head1->data);
+        head1 = head1->next;
+        temp = temp->next;
+    }
+    while (head2)
+    {
+        temp->next = new Node(head2->data);
+        head2 = head2->next;
+        temp = temp->next;
+    }
+
+    return head;
+}
+
 int main()
 {
-    Node *head = new Node(1);
-    insertAtTail(head, 2);
-    insertAtTail(head, 3);
-    insertAtTail(head, 4);
-    insertAtTail(head, 5);
-    insertAtStart(head, 0);
-    insertInBetween(head, 2, 7);
-    deleteNode(head, 0);
+    Node *head1 = new Node(2);
+    insertAtTail(head1, 5);
+    insertAtTail(head1, 8);
+    insertAtTail(head1, 10);
+    cout << "Linked List1: ";
+    traverseLinkedList(head1);
+
+    Node *head2 = new Node(1);
+    insertAtTail(head2, 4);
+    insertAtTail(head2, 6);
+    insertAtTail(head2, 9);
+    insertAtTail(head2, 12);
+    insertAtTail(head2, 14);
+    cout << "Linked List2: ";
+    traverseLinkedList(head2);
+
+    Node *head = merge(head1, head2);
     traverseLinkedList(head);
 
     return 0;

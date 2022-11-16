@@ -11,16 +11,28 @@ public:
         next = NULL;
     }
 };
+
 void traverseLinkedList(Node *head)
 {
+    // this will always work because the case:
+    // we cann't do :n1->n2->n3->n4->n5->n3 and n5->n4 (because n5 has only one next so it can only point to one node)
+    // n1->n2->n3->n4->n5->n3
 
-    Node *temp = head;
-    while (temp)
+    Node *slow = head;
+    Node *fast = head->next;
+    while (fast && fast->next && fast != slow)
     {
-        cout << temp->data << "->";
-        temp = temp->next;
+        slow = slow->next;
+        fast = fast->next->next;
     }
-    cout << endl;
+    if (fast == slow)
+    {
+        cout << "Cycle detected" << endl;
+    }
+    else
+    {
+        cout << "Not cycle detected" << endl;
+    }
 }
 void insertAtStart(Node *&head, int ele)
 {
